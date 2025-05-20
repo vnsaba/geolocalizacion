@@ -1,7 +1,6 @@
 import { ConfigProvider } from 'antd';
 import es_ES from 'antd/lib/locale/es_ES';
-const HomePage = lazy(() => import('./pages/HomePage.jsx'));
-const RoutePage = lazy(() => import('./pages/RoutePage.jsx'));
+
 // import { HomePage } from './components/pages/HomePage'
 // const RoutePage = lazy(() => import('./components/pages/RoutePage'));
 // import { RoutePage } from './components/pages';
@@ -9,6 +8,8 @@ const RoutePage = lazy(() => import('./pages/RoutePage.jsx'));
 import './App.css';
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+const HomePage = lazy(() => import('./pages/HomePage.jsx'));
+const RoutePage = lazy(() => import('./pages/RoutePage.jsx'));
 import { Spin } from 'antd';
 
 const App = () => {

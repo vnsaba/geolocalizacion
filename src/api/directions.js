@@ -3,7 +3,7 @@
 export default async function handler(req, res) {
   const { origin, destination, mode = 'driving', language = 'es' } = req.query;
 
-  const API_KEY = process.env.VITE_GOOGLE_MAPS_API_KEY;
+  const API_KEY = import.meta.VITE_GOOGLE_MAPS_API_KEY
 
   if (!origin || !destination) {
     return res.status(400).json({ error: 'Faltan parámetros requeridos' });

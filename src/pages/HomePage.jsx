@@ -6,41 +6,43 @@ import LocationInput from '../components/UI/LocationInput';
 import { geocodeAddress } from '../api/geocodingService';
 
 const HomePage = () => {
-    const [origin, setOrgin] = useState(''); // esto es un estado para guardar el origen 
-    const [destination, setDestination] = useState(''); // esto es un estado para guardar el destino p
-    const [originPlaceId, setOriginPlaceId] = useState(''); // esto es un estado para guardar el id del lugar de origen
-    const [destinationPlaceId, setDestinationPlaceId] = useState(''); // esto es un estado para guardar el id del lugar de destino
-    const [loading, setLoading] = useState(false); // esto es un estado para guardar si esta cargando o no
+    const [origin, setOrigin] = useState('');
+    const [destination, setDestination] = useState('');
+    const [originPlaceId, setOriginPlaceId] = useState('');
+    const [destinationPlaceId, setDestinationPlaceId] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate(); // esto es para navegar entre las paginas
+    const navigate = useNavigate();
 
     const handleSearchRoute = async () => {
-        if (!origin || !destination) { // esto es para que valide si hay un origen y un destino
-            notification.error({ // esto es para que muestre un error en caso de que no haya un origen y un destino
+        if (!origin || !destination) {
+            notification.error({
                 message: 'Error',
-                description: 'Please enter both origin and destination.',
+                description: 'Por favor ingresa origen y destino',
             });
-            return; // esto es para que no continue si no hay un origen y un destino
+            return;
         }
 
-        setLoading(true); // esto es para que muestre el loading
-        try {
-            //obtener coordenadas para el orien
-            const originResults = await geocodeAddress(origin); // esto es para que busque las coordenadas del origen
-            const originLocation = originResults[0].geometry.location; // esto es para que guarde las coordenadas del origen
+        setLoading(true);
 
-            //obtener coordenadas para el destino
-            const destResult = await geocodeAddress(destination); // esto es para que busque las coordenadas del destino
-            const destLocation = destResult[0].geometry.location; // esto es para que guarde las coordenadas del destino
+        try {
+            // Obtener coordenadas para el origen 
+            const originResults = await geocodeAddress({ address: origin });
+            const originLocation = originResults[0]?.geometry?.location;
+
+            // Obtener coordenadas para el destino 
+            const destResults = await geocodeAddress({ address: destination });
+            const destLocation = destResults[0]?.geometry?.location;
 
             if (!originLocation || !destLocation) {
-                notification.error({ // esto es para que muestre un error en caso de que no haya un origen y un destino
+                notification.error({
                     message: 'Error',
-                    description: 'Could not find coordinates for the given addresses.',
+                    description: 'No se pudieron encontrar las ubicaciones especificadas',
                 });
-                return; // esto es para que no continue si no hay un origen y un destino
+                return;
             }
-            // Navegar a la página de ruta con los parámetros
+
+            // Navegar a la página de ruta con los parámetros 
             navigate('/route', {
                 state: {
                     origin: {
@@ -71,7 +73,7 @@ const HomePage = () => {
             padding: '24px', maxWidth: '600px', margin: '0 auto',
             marginTop: '50px'
         }}>
-            <Card title="Buscar Rutas en Colombia" bordered={true}>
+            <Card title="Buscar Rutas en Colombia" variant={true}>
                 <div style={{ marginBottom: '20px' }}>
                     <h3>Origen</h3>
                     <LocationInput
@@ -84,7 +86,9 @@ const HomePage = () => {
                         }}
                     />
                 </div>
+
                 <Divider />
+
                 <div style={{ marginBottom: '20px' }}>
                     <h3>Destino</h3>
                     <LocationInput
@@ -97,6 +101,7 @@ const HomePage = () => {
                         }}
                     />
                 </div>
+
                 <div style={{ textAlign: 'center', marginTop: '30px' }}>
                     <Button
                         type="primary"

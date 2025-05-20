@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY ||
-    process.env.VITE_GOOGLE_MAPS_API_KEY;
+const API_KEY = import.meta.VITE_GOOGLE_MAPS_API_KEY
 
 // Este hook utiliza la API de Places 
 export const useLocation = () => {
