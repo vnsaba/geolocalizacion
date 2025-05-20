@@ -5,7 +5,7 @@ import { CarOutlined, EnvironmentOutlined, LeftOutlined } from
     '@ant-design/icons';
 import { GoogleMap, useJsApiLoader, Marker, DirectionsRenderer } from
     '@react-google-maps/api';
-import { getDirections } from '../../api/directionsService';
+import { getDirections } from '../api/directionsService';
 import { useNavigate } from 'react-router-dom';
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY ||
